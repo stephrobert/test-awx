@@ -1,2 +1,19 @@
 ---
-
+- hosts: all
+  gather_facts: false
+  become: false
+  tasks:
+  - name: install kubernetes python client
+    ansible.builtin.pip:
+      name: kubernetes
+      state: present
+      version: 21.7.0
+  - name: Get namespace kubernetes
+    kubernetes.core.k8s_info:
+      kind: Pod
+      field_selectors:
+        - status.phase=Running
+    register: runningpods
+  - name: Display Pod
+    debug:
+      var: runningpods

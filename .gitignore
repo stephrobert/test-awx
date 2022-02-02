@@ -3,3 +3,4 @@
 .vagrant/
 build/
 context/
+artifacts/
